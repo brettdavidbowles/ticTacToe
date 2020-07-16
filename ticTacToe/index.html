@@ -38,39 +38,47 @@ function markBoard(arr) {
     const squares = document.querySelectorAll('.sq');
     const gameBoard = document.querySelector('#gameBoard')
     function placeXorO () {
-        arr.forEach(element => {
-            let sqNum = arr.indexOf(element)
-            const textNode = document.createTextNode(element)
-            console.log(sqNum)
+        
+            
+            
+            
         
         for (const square of squares) {
         square.addEventListener('click', (e) => {
-            for (let i = 0; i < arr.length; i++) {
+
+            // fill square with corresponding array content
+            
+                
                 let sq = document.createElement('div')
-                sq.innerText = arr[i]
-                if (sqNum == i+1){
+                sq.innerText = arr[(square.getAttribute('id'))-1]
+                
                     square.appendChild(sq)
-                    console.log('eh')
+                    
+                    
+                    
+                    
     
     }
     
-                }
-            })
+                
+            
         
         
-        }
-    })
+        )}
+    
     }
     placeXorO()  
     
 }
     
 
+
+
     
 
-markBoard(['x', 'o', 'x', 'o'])
+markBoard(['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'])
 
-console.log('test')
+
 
     </script>
 </body>
