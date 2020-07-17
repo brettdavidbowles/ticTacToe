@@ -33,51 +33,71 @@
     </style>
 
     <script>
-
-function markBoard(arr) {
+// renders X's and O's on board
+const markBoard = (() => {
     const squares = document.querySelectorAll('.sq');
     const gameBoard = document.querySelector('#gameBoard')
-    function placeXorO () {
-        
-            
-            
-            
-        
-        for (const square of squares) {
-        square.addEventListener('click', (e) => {
+    const placeXorO = (arr) => {
 
-            // fill square with corresponding array content
-            
-                
+        for (const square of squares) {
+        
+            square.addEventListener('click', (e) => {
+            // make sure can only click square once
+            if (square.children.length < 1) {
+            // fill square with corresponding array content 
                 let sq = document.createElement('div')
                 sq.innerText = arr[(square.getAttribute('id'))-1]
                 
                     square.appendChild(sq)
-                    
-                    
-                    
-                    
-    
-    }
-    
-                
-            
-        
-        
-        )}
-    
-    }
-    placeXorO()  
-    
+            }
+            })
+
 }
-    
+return {
+    placeXorO,
+}}
+})();
+
+// creates players  
+const playerFactory = (name) => {
+    // keep track of whose turn it is
+    let turn = 0;
+    // designate X and O
+    let piece
+    if (turn%2 == 0){
+        piece = 'X'
+    } else {
+        piece = 'O'
+    };
+    //add piece to array
+    gameArr = [];
+    gameArr.length = 9;
+const move = () => {
+    const squares = document.querySelectorAll('.sq');
+    for (const square of squares) {
+        square.addEventListener('click', (e) => {
+            gameArr.splice(square.getAttribute('id')-1, 1, piece);
+            turn++;
+            
+})
+}}
+return {name, piece, move, gameArr, turn}
+
+};
 
 
 
-    
+const testGame = playerFactory('brett')
 
-markBoard(['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'])
+testGame.move();
 
+
+
+
+let testArr =['x', 'x', 'x', 'x']
+
+
+markBoard.placeXorO(testArr)
 
 
     </script>
