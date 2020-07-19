@@ -43,32 +43,28 @@ const markBoard = (() => {
         
             square.addEventListener('click', (e) => {
             // make sure can only click square once
-            if (square.children.length < 1) {
+            if ((square.children.length < 1)) {
             // fill square with corresponding array content 
                 let sq = document.createElement('div')
                 sq.innerText = arr[(square.getAttribute('id'))-1]
                 
                     square.appendChild(sq)
+                    
             }
-            })
+            
 
 }
+            )}
+    }
 return {
-    placeXorO,
-}}
-})();
+    placeXorO
+    }}
+)();
 
 // creates players  
 const playerFactory = (name) => {
-    // keep track of whose turn it is
-    let turn = 0;
-    // designate X and O
+     turn = 0;
     let piece
-    if (turn%2 == 0){
-        piece = 'X'
-    } else {
-        piece = 'O'
-    };
     //add piece to array
     gameArr = [];
     gameArr.length = 9;
@@ -76,14 +72,71 @@ const move = () => {
     const squares = document.querySelectorAll('.sq');
     for (const square of squares) {
         square.addEventListener('click', (e) => {
+            // designate X and O
+            if (turn%2 == 0){
+             piece = 'X'
+                 } else {
+            piece = 'O'
+                 };
+            //add piece to the array
             gameArr.splice(square.getAttribute('id')-1, 1, piece);
-            turn++;
+            // keep track of whose turn it is
+            if (square.children.length < 1) {
+            turn++
+            whoWon.check(gameArr)
             
+            }  
+                    
 })
-}}
+}
+markBoard.placeXorO(gameArr);
+}
 return {name, piece, move, gameArr, turn}
-
 };
+
+//check for winner
+const whoWon = (() => {
+    function check (arr){
+    let status = 0
+    //i'm sure there's a  better way to do this, but i expect i'll learn it later
+    if (((arr[0] == arr[1]) && (arr[0] == arr[2])) && (arr[0] != undefined)){
+        status++
+    } else if (((arr[3] == arr [4]) && (arr[3] == arr[5])) && (arr[3] != undefined)){
+        status++
+    } else if (((arr[6] == arr [7]) && (arr[6] == arr[8])) && (arr[6] != undefined)){
+        status++
+    } else if (((arr[0] == arr [3]) && (arr[3] == arr[6])) && (arr[0] != undefined)){
+        status++
+    } else if (((arr[1] == arr [4]) && (arr[1] == arr[7])) && (arr[1] != undefined)){
+        status++
+    } else if (((arr[2] == arr [5]) && (arr[2] == arr[8])) && (arr[2] != undefined)){
+        status++
+    } else if (((arr[0] == arr [4]) && (arr[0] == arr[8])) && (arr[0] != undefined)){
+        status++
+    } else if (((arr[2] == arr [4]) && (arr[2] == arr[6])) && (arr[2] != undefined)){
+        status++
+    } 
+
+    if (status > 0){
+        alert('Winner!')
+    } else if (arr[0] != undefined 
+                && arr[1] != undefined 
+                && arr[2] != undefined
+                && arr[3] != undefined 
+                && arr[4] != undefined 
+                && arr[5] != undefined
+                && arr[6] != undefined
+                && arr[7] != undefined
+                && arr[8] != undefined 
+                ) {
+                    alert('Tie')
+                }
+    
+    }
+    return{
+        check, status  
+    }
+})()
 
 
 
@@ -91,13 +144,18 @@ const testGame = playerFactory('brett')
 
 testGame.move();
 
-
-
-
-let testArr =['x', 'x', 'x', 'x']
-
-
-markBoard.placeXorO(testArr)
+const check = () => {
+    if (testGame.gameArr[6] != undefined){
+        console.log('correct')
+    } else {
+        console.log('incorrect')
+    }
+    if (testGame.gameArr[1] == testGame.gameArr[2]) {
+        console.log('yep')
+    } else{
+        console.log('nope')
+    }
+}
 
 
     </script>
